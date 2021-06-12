@@ -1,32 +1,56 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>v-bind Conditionals</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
-			.important {font-weight:bold; font-size:30px;}
-		</style>
-	</head>
-	<body>
-	
+
+<head>
+	<title>v-bind Conditionals</title>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.special {
+			background: yellow;
+			border: 1px dotted #fe0000;
+			padding: 30px;
+			display: block;
+			text-align: center;
+		}
+
+		.important {
+			font-weight: bold;
+			font-size: 30px;
+		}
+	</style>
+</head>
+
+<body>
+
 	<div id="app">
-		<span v-bind:class="{special:true, important:isImportant}">
+		<span v-bind:class="{special:isSpecial, important:isImportant}">
 			look at me!
 		</span>
 	</div>
-	
+
 	<script>
-	var app = new Vue({
-		el: '#app',
-		data:{
-			isImportant:true
-		}
-	});
+		//Define an array that contains truthy and falsey values
+		var myValues = ['Hello', '', 211, 0, -192, null];
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+
+				//Get a random truthy or falsey value from the myValues array.
+				isImportant: myValues[Math.floor(Math.random() * myValues.length)],
+				//Bind the special attribute to "isSpecial" in the data object
+				isSpecial: myValues[Math.floor(Math.random() * myValues.length)]
+			}
+		});
+		//  2. Use the console  to change "isSpecial" and "isImportant" from true to false
+		/*  Type the following in the console:
+			app.isImportant=false;
+			app.isSpecial=false;
+		*/
 	</script>
-	
-		<!--
+
+	<!--
 		//step 1: Read Code Above
 		//step 2: Will the span have values for special and important?
 		//step 3: execute the code and interpret!
@@ -68,5 +92,6 @@
 		2. Use the console  to change "isSpecial" and "isImportant" from true to false
 		3. Change "isSpecial" and "isImportant" so they are randomly assigned a Truthy or Falsey value
 		-->
-	</body>
+</body>
+
 </html>

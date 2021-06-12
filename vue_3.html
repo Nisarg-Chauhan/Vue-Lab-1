@@ -1,42 +1,91 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>v-if If Statements</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
-			.important {font-weight:bold; font-size:30px;}
-		</style>
-	</head>
-	<body>
-	
-	<div id="app">
-		<span v-if="profile">
-			Profile of {{profile.fname}} {{profile.lname}} 
-		</span>
-		<span v-else>
-			No Profile Data found.
-		</span>
-	</div>
-	
-	<script>
-	var app = new Vue({
-		el: '#app',
-		
-		data:{
-			/*
-			profile:{
-				fname: "John",
-				lname: "Doe"	
-			}
-			*/
+
+<head>
+	<title>v-if If Statements</title>
+	<meta charset="UTF-8" />
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.myProfileImg {
+			width: 250px;
+			height: 300px;
+			object-fit: contain;
 		}
-		
-	});
+
+		.myProfileCard {
+			width: 300px;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			border: 1px solid black;
+			background-color: antiquewhite;
+			padding: 5px;
+			margin: 3px;
+		}
+
+		figure {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		figcaption {
+			text-align: center;
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div>
+			<!-- Check for the profile object -->
+			<div v-if="profile" v-bind:class="profileCard">
+				<span>Profile of {{profile.fname}} {{profile.lname}}</span>
+				<!-- Create a figure, figcaption, and image markup -->
+				<figure>
+					<!-- Check if the user's image is available -->
+					<img v-if="profile.pic" v-bind:class="imgClass" v-bind:src="profile.pic"
+						v-bind:alt="profile.imgAlt">
+					<!--If the user's image is not found, use a generic image instead of it -->
+					<img v-else v-bind:class="imgClass" v-bind:src="genericImage" v-bind:alt="profile.imgAlt">
+					<!-- Check if the bio is available -->
+					<figcaption v-if="profile.bio">{{profile.desc}} {{profile.bio}}</figcaption>
+					<!-- If the bio is not available, display appropriate message -->
+					<figcaption v-else>{{noBio}}</figcaption>
+				</figure>
+			</div>
+			<span v-else> No Profile Data found. </span>
+		</div>
+
+	</div>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				imgClass: 'myProfileImg',
+				profileCard: 'myProfileCard',
+				noBio: 'No bio Available!',
+				genericImage: "images/img_avatar.png",
+				// Profile object is used to store information
+				profile: {
+					fname: "Nisarg",
+					lname: "Chauhan",
+					desc: "I am a Full- Stack Developer based in Toronto, Canada.",
+					bio: "I spend my days working in many different areas of web development from back-end programming to front-end engineering. Aside from web development,"
+						+ "I enjoy spending my time reading books and travelling around the country. ",
+					pic: "images/nisarg.jpg",
+					imgAlt: "Profile picture"
+				}
+			}
+		});
 	</script>
-	
-		<!--
+
+	<!--
 		//step 1: Read Code Above
 		//step 2: Does the profile show up?
 		
@@ -56,5 +105,6 @@
 			(Something like this https://www.w3schools.com/howto/howto_css_cards.asp)
 		3. Write conditionals if information is missing (i.e. 'no bio available' if bio is blank, generic image if no pic is found)
 		-->
-	</body>
+</body>
+
 </html>
